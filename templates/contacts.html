@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View All Contacts</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<style>
+table, th, td {
+  border:1px solid black;
+}
+</style>
+<body>
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+              <div class="alert alert-danger alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                {{ message }}
+              </div>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <a href="/addcontact/">
+        <button style="margin-top: 10px; margin-bottom: 10px; float: right" type="button" class="btn btn-primary">Add New Contact</button>
+
+    </a>
+    <table style="width:100%">
+      <tr>
+        <th>Contact ID</th>
+        <th>User Name</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+          <th>Image</th>
+        <th>Email</th>
+        <th>Phone No</th>
+        <th>Mobile No</th>
+        <th>Address</th>
+        <th>Delete Contact</th>
+      </tr>
+        {% for contact in contacts %}
+
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ contact.user }}</td>
+              <td>{{ contact.first_name }}</td>
+        <td>{{ contact.last_name }}</td>
+              <td>
+                          {% if contact.image %}
+            <img src="{{ contact.image.url }}" width="100" height="100">
+        {% endif %}
+              </td>
+        <td>{{ contact.email }}</td>
+        <td>{{ contact.phone }}</td>
+        <td>{{ contact.mobile }}</td>
+        <td>{{ contact.address }} </td>
+
+              <td><a href={% url 'delete' contact.id %}><img src="/uploads/delete_unhighlight.png" width="50" height="50"></a></td>
+
+          </tr>
+        {% endfor %}
+        </table>
+
+</body>
+</html>
